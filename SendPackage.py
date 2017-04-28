@@ -7,7 +7,7 @@ def sendpackage(pacote):
     s.bind((HOST, PORT))
     s.listen(1)
     conn, addr = s.accept()
-    s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+    s.setsockopt(socket.IPPROTO_UDP, socket.TCP_NODELAY, 1)
     conn.send(pacote)
 
     return 0
