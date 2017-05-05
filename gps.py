@@ -78,6 +78,7 @@ def readgps():
 
 
     f.close()
+    new_f.close()
     Ser.close()
 
 readgps()
