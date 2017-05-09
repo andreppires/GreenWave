@@ -15,13 +15,13 @@ def calc_checksum(sentence):
     return nmeadata, '0x' + cksum, hex(calc_cksum)
 
 def readgps():
-    global emis_lat
-    global deg_lat
+    global latEmisphere
+    global latDegrees
 
-    global emis_lon
-    global deg_lon
+    global lonEmisphere
+    global lonDegrees
 
-    global height
+    global heading
     global utc
 
     Ser = serial.Serial( port='COM4', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=0)
@@ -46,32 +46,32 @@ def readgps():
                         new_f.write(line)
                     if splited[0] == ('$GPGGA'):
                         utc = splited[1]
-                        height = float(splited[9]) + float(splited[11])
-                        deg_lat = float(splited[2]) # NOTA: O formato encontra-se em DD.MM.mmmm
+                        heading = float(splited[9]) + float(splited[11])
+                        latDegrees = float(splited[2]) # NOTA: O formato encontra-se em DD.MM.mmmm
                         if splited[3]=='N': # North = 1 e S=0 (Se sul multiplica-se por -1)
-                            emis_lat=1
+                            latEmisphere=1
                         else:
-                            emis_lat=0
-                        deg_lon = float(splited[4]) # NOTA: O formato encontra-se em DD.MM.mmmm
+                            latEmisphere=0
+                        lonDegrees = float(splited[4]) # NOTA: O formato encontra-se em DD.MM.mmmm
                         if splited[5] == 'W': # East = 1 e West = 0 (Se West multiplica-se por -1)
-                            emis_lon =0
+                            lonEmisphere =0
                         else:
-                            emis_lon =1
+                            lonEmisphere =1
 
                     if splited[0] == ('$GPRMC'):
                         utc = splited[1]
-                        deg_lat = float(splited[3]) # NOTA: O formato encontra-se em DD.MM.mmmm
+                        latDegrees = float(splited[3]) # NOTA: O formato encontra-se em DD.MM.mmmm
                         if splited[4] == 'N': # North = 1 e S=0 (Se sul multiplica-se por -1)
-                            emis_lat = 1
+                            latEmisphere = 1
                         else:
-                            emis_lat = 0
-                        deg_lon = float(splited[5]) # NOTA: O formato encontra-se em DD.MM.mmmm
+                            latEmisphere = 0
+                        lonDegrees = float(splited[5]) # NOTA: O formato encontra-se em DD.MM.mmmm
                         if splited[6] == 'W': # East = 1 e West = 0 (Se West multiplica-se por -1)
-                            emis_lon = 0
+                            lonEmisphere = 0
                         else:
-                            emis_lon = 1
+                            lonEmisphere = 1
 
-                    print emis_lat, deg_lat , emis_lon , deg_lon , utc , height
+                    print latEmisphere, latDegrees , lonEmisphere , lonDegrees , utc , heading
     f.close()
     new_f.close()
     Ser.close()
