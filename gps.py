@@ -1,9 +1,6 @@
 import serial
 import re
 
-
-
-
 def calc_checksum(sentence):
     if re.search("\n$", sentence):
         sentence = sentence[:-1]
@@ -18,18 +15,19 @@ def calc_checksum(sentence):
     return nmeadata, '0x' + cksum, hex(calc_cksum)
 
 def readgps():
+    global emis_lat
+    global deg_lat
+
+    global emis_lon
+    global deg_lon
+
+    global height
+    global utc
+
     Ser = serial.Serial( port='COM4', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=0)
     print("connected to: " + Ser.portstr)
     f = open('nmea.txt', 'w+')
     new_f = open('filtered_nmea.txt', 'w+')
-
-    emis_lat = 0
-    deg_lat = 0
-
-    emis_lon = 0
-    deg_lon = 0
-
-    height = 0
 
     while True:
         line = Ser.readline()
@@ -47,7 +45,7 @@ def readgps():
                     with open("C:\Users\Pedro\PycharmProjects\GreenWave/filtered_nmea.txt", 'a') as new_f:
                         new_f.write(line)
                     if splited[0] == ('$GPGGA'):
-                        utc=splited[1]
+                        utc = splited[1]
                         height = float(splited[9]) + float(splited[11])
                         deg_lat = float(splited[2]) # NOTA: O formato encontra-se em DD.MM.mmmm
                         if splited[3]=='N': # North = 1 e S=0 (Se sul multiplica-se por -1)
@@ -74,9 +72,6 @@ def readgps():
                             emis_lon = 1
 
                     print emis_lat, deg_lat , emis_lon , deg_lon , utc , height
-
-
-
     f.close()
     new_f.close()
     Ser.close()
