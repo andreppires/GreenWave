@@ -1,14 +1,17 @@
 import serial
 import re
-import threading
+import CamConstructor
+import time
 
-lock = threading.Lock()
+def getPosition():
 
-latEmisphere = 0
-latDegrees = 1
-lonEmisphere = 2
-lonDegrees = 3
-utc = 0
+    global latEmisphere
+    global latDegrees
+    global lonEmisphere
+    global lonDegrees
+    global utc
+    print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
+    return latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
 
 
 def calc_checksum(sentence):
@@ -26,6 +29,17 @@ def calc_checksum(sentence):
 
 
 def readgps():
+    global latEmisphere
+    latEmisphere = 1.000
+    global latDegrees
+    latDegrees = 2.0000
+    global lonEmisphere
+    lonEmisphere = 3.0000
+    global lonDegrees
+    lonDegrees = 4.0000
+    global utc
+    utc = 0.000
+
     Ser = serial.Serial(port='COM4', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
                         bytesize=serial.EIGHTBITS, timeout=0)
 
@@ -52,7 +66,7 @@ def readgps():
 
                         if splited[1] == '':
                             continue
-                        utc = splited[1]
+                        utc = float(splited[1])
                         # heading = float(splited[9]) + float(splited[11])
 
                         if splited[2] == '':
@@ -63,9 +77,9 @@ def readgps():
                         if splited[3] == '':
                             continue
                         if splited[3] == 'N':  # North = 1 e S=0 (Se sul multiplica-se por -1)
-                            latEmisphere = 1
+                            latEmisphere = 1.00
                         else:
-                            latEmisphere = 0
+                            latEmisphere = 0.000
 
                         if splited[4] == '':
                             continue
@@ -74,15 +88,15 @@ def readgps():
                         if splited[5] == '':
                             continue
                         if splited[5] == 'W':  # East = 1 e West = 0 (Se West multiplica-se por -1)
-                            lonEmisphere = 0
+                            lonEmisphere = 0.000
                         else:
-                            lonEmisphere = 1
+                            lonEmisphere = 1.000
 
                     if splited[0] == ('$GPRMC'):
 
                         if splited[1] == '':
                             continue
-                        utc = splited[1]
+                        utc = float(splited[1])
 
                         if splited[3] == '':
                             continue
@@ -94,9 +108,9 @@ def readgps():
                         if splited[4] == '':
                             continue
                         if splited[4] == 'N':  # North = 1 e S=0 (Se sul multiplica-se por -1)
-                            latEmisphere = 1
+                            latEmisphere = 1.000
                         else:
-                            latEmisphere = 0
+                            latEmisphere = 0.000
 
                         if splited[5] == '':
                             continue
@@ -105,16 +119,20 @@ def readgps():
                         if splited[6] == '':
                             continue
                         if splited[6] == 'W':  # East = 1 e West = 0 (Se West multiplica-se por -1)
-                            lonEmisphere = 0
+                            lonEmisphere = 0.000
                         else:
-                            lonEmisphere = 1
+                            lonEmisphere = 1.0000
 
-                            print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
+                    #print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
+
+            #latEmisphere = 0
+            #latDegrees = 1
+            #lonEmisphere = 2
+            #lonDegrees = 3
+            #utc = 0
+
         f.close()
     new_f.close()
     Ser.close()
-    print "GPS CARALHO"
 
 
-def getPosition():
-    return latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc

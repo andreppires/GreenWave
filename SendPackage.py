@@ -1,7 +1,7 @@
 import socket
 
 def sendpacket(packet):
-    UDP_IP = "255.255.255.255"
+    UDP_IP = "localhost"
     UDP_PORT = 5005
     MESSAGE = packet
 

@@ -6,9 +6,6 @@ from Receiver import receive
 from gps import readgps
 
 emergence=True
-sendpacket(camconstructor(emergence))
-
-
 
 class Thread(threading.Thread):
     def __init__(self, t, *args):

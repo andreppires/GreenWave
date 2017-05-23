@@ -1,6 +1,10 @@
 import struct
 import gps
 
+
+
+
+
 def camconstructor(emergence):
     # header
     protoversion=1      # versao do nosso protocolo
@@ -30,10 +34,10 @@ def camconstructor(emergence):
 
     #Heading
     utc = position[5-1]         # altura em relacao a linha do mar
-
+    print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
     # Emergence | Nao faz parte das mensagens CAM standard. Evita a necessidade das mensagens DNM
     inEmergence= emergence  # Ambulancia em emergencia
 
-    packet = struct.pack('!HHHHHHHHHHHHHH', protoversion, MessageID, generationtime, StatioID, mobileITS, privateITS,
+    packet = struct.pack('!HHHHHHHffffffH', protoversion, MessageID, generationtime, StatioID, mobileITS, privateITS,
                          PhysicalRelITS, latEmisphere, latDegrees, lonEmisphere, lonDegrees, elevation, utc, inEmergence)
     return packet
