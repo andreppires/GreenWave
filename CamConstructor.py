@@ -29,11 +29,14 @@ def camconstructor(emergence):
     elevation = 0       # angulo
 
     #Heading
-    heading = position[5-1]         # altura em relacao a linha do mar
+    utc = position[5-1]         # altura em relacao a linha do mar
 
     # Emergence | Nao faz parte das mensagens CAM standard. Evita a necessidade das mensagens DNM
     inEmergence= emergence  # Ambulancia em emergencia
 
     packet = struct.pack('!HHHHHHHHHHHHHH', protoversion, MessageID, generationtime, StatioID, mobileITS, privateITS,
-                         PhysicalRelITS, latEmisphere, latDegrees, lonEmisphere, lonDegrees, elevation, heading, inEmergence)
+                         PhysicalRelITS, latEmisphere, latDegrees, lonEmisphere, lonDegrees, elevation, utc, inEmergence)
+    print packet
     return packet
+
+camconstructor(1)
