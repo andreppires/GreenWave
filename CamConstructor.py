@@ -1,8 +1,11 @@
+import struct
+import gps
+
 def camconstructor(emergence):
     # header
     protoversion=1      # versao do nosso protocolo
     MessageID= 0        # identificador de cada msg. Tem de ser diferente - contador ou generation time in milliseconds
-    generatiotime=10
+    generationtime=10
 
     # body
     StatioID=0          # ambulance=0 | semaforos um outro valor inteiro ainda nao em uso
@@ -13,22 +16,24 @@ def camconstructor(emergence):
 
     # ReferencePosition
 
+    position=gps.getPosition()
     # latitude
-    latEmisphere = 1    # 1, norte |0, sul
-    latDegrees= 0
+    latEmisphere = position[1-1] # 1, norte |0, sul
+    latDegrees= position[2-1]
 
     # longitude
-    lonEmisphere = 1    # 1, norte |0, sul
-    lonDegrees = 0
+    lonEmisphere = position[3-1]    # 1, norte |0, sul
+    lonDegrees = position[4-1]
 
     #Elevation
     elevation = 0       # angulo
 
     #Heading
-    heading = 0         # altura em relacao a linha do mar
+    heading = position[5-1]         # altura em relacao a linha do mar
 
     # Emergence | Nao faz parte das mensagens CAM standard. Evita a necessidade das mensagens DNM
     inEmergence= emergence  # Ambulancia em emergencia
 
-    packet=
-    return 0
+    packet = struct.pack('!HHHHHHHHHHHHHH', protoversion, MessageID, generationtime, StatioID, mobileITS, privateITS,
+                         PhysicalRelITS, latEmisphere, latDegrees, lonEmisphere, lonDegrees, elevation, heading, inEmergence)
+    return packet

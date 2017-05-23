@@ -1,13 +1,14 @@
-def sendpackage(pacote):
-    # recebe o pacote e envia o pacote para a rede wifi
-    import socket
-    HOST = '192.168.0.106'
-    PORT = 5002
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((HOST, PORT))
-    s.listen(1)
-    conn, addr = s.accept()
-    s.setsockopt(socket.IPPROTO_UDP, socket.TCP_NODELAY, 1)
-    conn.send(pacote)
+import socket
 
-    return 0
+def sendpacket(packet):
+    UDP_IP = "255.255.255.255"
+    UDP_PORT = 5005
+    MESSAGE = packet
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
+    return
+
+
+
