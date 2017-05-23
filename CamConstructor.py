@@ -36,7 +36,4 @@ def camconstructor(emergence):
 
     packet = struct.pack('!HHHHHHHHHHHHHH', protoversion, MessageID, generationtime, StatioID, mobileITS, privateITS,
                          PhysicalRelITS, latEmisphere, latDegrees, lonEmisphere, lonDegrees, elevation, utc, inEmergence)
-    print packet
     return packet
-
-camconstructor(1)

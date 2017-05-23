@@ -113,10 +113,8 @@ def readgps():
         f.close()
     new_f.close()
     Ser.close()
+    print "GPS CARALHO"
 
 
 def getPosition():
-    print 'blablabla'
-    print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
     return latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
-readgps()
