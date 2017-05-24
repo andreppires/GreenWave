@@ -1,5 +1,6 @@
 import socket
 import struct
+from calculaSentido import calcSentido
 UDP_IP = 'localhost'
 UDP_PORT = 5005
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
@@ -9,14 +10,18 @@ def receive():
     while True:
         data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
 
-        received_data = (struct.unpack('!HHHHHHHffffffH',data))
+        received_data = (struct.unpack('!HHHHHHHfffffH',data))
         print received_data
         emergence=received_data[len(received_data)-1]
         sender= received_data[4-1]
         print "senderP= "+str(sender)
+
         if(emergence):
             if sender == 0:
-                print "Mudar semaforo!"
+                if(calcSentido(received_data[7-1],received_data[8-1], received_data[9-1], received_data[10-1], received_data[11-1])):
+                    print "Ativar estado emergencia!"
+                else:
+                    print "desativar estado de emergencia"
             else:
                 print "Avisar peoes!"
         else:

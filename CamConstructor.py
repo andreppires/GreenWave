@@ -32,8 +32,6 @@ def camconstructor(emergence, senderID):
     lonEmisphere = position[3-1]    # 1, norte |0, sul
     lonDegrees = position[4-1]
 
-    #Elevation
-    elevation = 0       # angulo
 
     #Heading
     utc = position[5-1]         # altura em relacao a linha do mar
@@ -41,6 +39,6 @@ def camconstructor(emergence, senderID):
     # Emergence | Nao faz parte das mensagens CAM standard. Evita a necessidade das mensagens DNM
     inEmergence= emergence  # Ambulancia em emergencia
 
-    packet = struct.pack('!HHHHHHHffffffH', protoversion, MessageID, generationtime, StatioID, mobileITS, privateITS,
-                         PhysicalRelITS, latEmisphere, latDegrees, lonEmisphere, lonDegrees, elevation, utc, inEmergence)
+    packet = struct.pack('!HHHHHHHfffffH', protoversion, MessageID, generationtime, StatioID, mobileITS, privateITS,
+                         PhysicalRelITS, latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, inEmergence)
     return packet
