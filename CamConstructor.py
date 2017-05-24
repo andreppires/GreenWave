@@ -38,7 +38,7 @@ def camconstructor(emergence, senderID):
     #print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
     # Emergence | Nao faz parte das mensagens CAM standard. Evita a necessidade das mensagens DNM
     inEmergence= emergence  # Ambulancia em emergencia
-
     packet = struct.pack('!HHHHHHHfffffH', protoversion, MessageID, generationtime, StatioID, mobileITS, privateITS,
                          PhysicalRelITS, latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, inEmergence)
-    return packet
+
+    return packet , latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
