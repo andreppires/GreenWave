@@ -49,7 +49,6 @@ def readgps():
     while True:
         line = Ser.readline()
         if line:
-
             data, cksum, calc_cksum = calc_checksum(line)
             if int(cksum, 16) == int(calc_cksum, 16):
                 with open("C:\Users\Pedro\PycharmProjects\GreenWave/Nmea.txt", 'a') as f:
