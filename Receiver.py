@@ -18,7 +18,7 @@ def receive():
 
         if(emergence):
             if sender == 0:
-                if(calcSentido(received_data[7-1],received_data[8-1], received_data[9-1], received_data[10-1], received_data[11-1])):
+                if(calcSentido(received_data[7],received_data[8], received_data[9], received_data[10], received_data[11])):
                     print "Ativar estado emergencia!"
                 else:
                     print "desativar estado de emergencia"
@@ -27,6 +27,7 @@ def receive():
         else:
             if sender == 0:
                 print "Saber o sentido do movimento da Ambulancia!"
+                calcSentido(received_data[7], received_data[8], received_data[9], received_data[10], received_data[11])
             else:
                 print "Alerta! Mau comportamento"
 
