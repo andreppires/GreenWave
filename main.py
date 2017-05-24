@@ -5,6 +5,8 @@ from SendPackage import sendpacket
 from Receiver import receive
 from gps import readgps
 from button import readButton
+import globaldict
+from semaforo import dicCAM
 
 emergence=False
 senderID=0
@@ -17,9 +19,14 @@ class Thread(threading.Thread):
 
 def sender():
     global emergence
+    globaldict.dic_msg = {}
     while True:
         time.sleep(0.01)
-        sendpacket(camconstructor(emergence, senderID))
+        packet ,latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc= camconstructor(emergence, senderID)
+        dicCAM([latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc,], senderID )
+        sendpacket(packet)
+
+
 
 
 def readGPSCoor():
