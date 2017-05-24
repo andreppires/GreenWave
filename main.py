@@ -8,8 +8,8 @@ from button import readButton
 import globaldict
 from semaforo import dicCAM
 
-emergence=False
-senderID=0
+emergence=True
+senderID=1
 
 class Thread(threading.Thread):
     def __init__(self, t, *args):
@@ -34,8 +34,9 @@ def readGPSCoor():
 
 
 def receiver():
+    global senderID
     while True:
-        receive()
+        receive(senderID)
 
 
 def Button():
