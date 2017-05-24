@@ -4,8 +4,10 @@ from CamConstructor import camconstructor
 from SendPackage import sendpacket
 from Receiver import receive
 from gps import readgps
+from button import readButton
 
-emergence=True
+emergence = False
+
 
 class Thread(threading.Thread):
     def __init__(self, t, *args):
@@ -14,22 +16,32 @@ class Thread(threading.Thread):
 
 
 def sender():
+    global emergence
     while True:
         time.sleep(0.01)
         sendpacket(camconstructor(emergence))
 
+
 def readGPSCoor():
     readgps()
+
 
 def receiver():
     while True:
         receive()
 
+
+def Button():
+    global emergence
+    while True:
+        emergence = readButton()
+
+
 def main():
     receivee = Thread(receiver)
     gps = Thread(readGPSCoor)
     send = Thread(sender)
-
+    btn = Thread(Button)
 
 
 if __name__ == '__main__':

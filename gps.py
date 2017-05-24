@@ -1,7 +1,6 @@
 import serial
 import re
-import CamConstructor
-import time
+
 
 def getPosition():
 
@@ -10,7 +9,7 @@ def getPosition():
     global lonEmisphere
     global lonDegrees
     global utc
-    print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
+    #print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
     return latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
 
 
@@ -122,15 +121,6 @@ def readgps():
                             lonEmisphere = 0.000
                         else:
                             lonEmisphere = 1.0000
-
-                    #print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
-
-            #latEmisphere = 0
-            #latDegrees = 1
-            #lonEmisphere = 2
-            #lonDegrees = 3
-            #utc = 0
-
         f.close()
     new_f.close()
     Ser.close()
