@@ -6,6 +6,7 @@ from Receiver import receive
 from gps import readgps
 from button import readButton
 from semaforo import dicCAM
+from NormalLED import normalLED
 import globaldict
 emergence=False
 senderID=0
@@ -28,7 +29,8 @@ def sender():
         sendpacket(packet)
 
 
-
+def ledsnormal():
+    normalLED()
 
 def readGPSCoor():
     readgps()
@@ -50,6 +52,7 @@ def main():
     gps = Thread(readGPSCoor)
     send = Thread(sender)
     btn = Thread(Button)
+    ledsEmNormal=Thread(ledsnormal)
 
 
 if __name__ == '__main__':
