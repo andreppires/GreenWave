@@ -6,8 +6,8 @@ from Receiver import receive
 from gps import readgps
 from button import readButton
 
-emergence = False
-
+emergence=False
+senderID=0
 
 class Thread(threading.Thread):
     def __init__(self, t, *args):
@@ -19,7 +19,7 @@ def sender():
     global emergence
     while True:
         time.sleep(0.01)
-        sendpacket(camconstructor(emergence))
+        sendpacket(camconstructor(emergence, senderID))
 
 
 def readGPSCoor():

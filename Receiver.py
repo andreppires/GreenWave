@@ -12,10 +12,18 @@ def receive():
         received_data = (struct.unpack('!HHHHHHHffffffH',data))
         print received_data
         emergence=received_data[len(received_data)-1]
-        #if(emergence):
-            #print "emergencia!"
-        #else:
-        #    print "nooot"
+        sender= received_data[4-1]
+        print "senderP= "+str(sender)
+        if(emergence):
+            if sender == 0:
+                print "Mudar semaforo!"
+            else:
+                print "Avisar peoes!"
+        else:
+            if sender == 0:
+                print "Saber o sentido do movimento da Ambulancia!"
+            else:
+                print "Alerta! Mau comportamento"
 
 
 

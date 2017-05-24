@@ -3,16 +3,21 @@ import gps
 
 
 
-def camconstructor(emergence):
+
+
+def camconstructor(emergence, senderID):
     # header
     protoversion=1      # versao do nosso protocolo
     MessageID= 0        # identificador de cada msg. Tem de ser diferente - contador ou generation time in milliseconds
     generationtime=10
 
     # body
-    StatioID=0          # ambulance=0 | semaforos um outro valor inteiro ainda nao em uso
+    StatioID=senderID          # ambulance=0 | semaforos um outro valor inteiro ainda nao em uso
     # station caracteristics
-    mobileITS= True
+    if senderID==0:
+        mobileITS= True
+    else:
+        mobileITS=False
     privateITS = True
     PhysicalRelITS = True
 
