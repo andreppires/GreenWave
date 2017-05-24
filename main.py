@@ -7,8 +7,8 @@ from gps import readgps
 from button import readButton
 import globaldict
 from semaforo import dicCAM
-
-emergence=True
+import globaldict
+emergence=False
 senderID=1
 
 class Thread(threading.Thread):
@@ -18,12 +18,13 @@ class Thread(threading.Thread):
 
 
 def sender():
-    global emergence
+
     globaldict.dic_msg = {}
     while True:
         time.sleep(0.01)
-        packet ,latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc= camconstructor(emergence, senderID)
+        packet ,latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc= camconstructor(globaldict.emergence, senderID)
         dicCAM([latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc,], senderID )
+        print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
         sendpacket(packet)
 
 
@@ -40,9 +41,8 @@ def receiver():
 
 
 def Button():
-    global emergence
     while True:
-        emergence = readButton()
+        globaldict.emergence = readButton()
 
 
 def main():

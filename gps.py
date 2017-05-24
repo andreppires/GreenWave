@@ -39,7 +39,7 @@ def readgps():
     global utc
     utc = 0.000
 
-    Ser = serial.Serial(port='COM4', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
+    Ser = serial.Serial(port='COM3', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
                         bytesize=serial.EIGHTBITS, timeout=0)
 
     print("connected to: " + Ser.portstr)

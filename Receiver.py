@@ -11,7 +11,7 @@ UDP_PORT = 5005
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
 sock.bind((UDP_IP, UDP_PORT))
 
-thisposition=[10, 10]
+thisposition=[3844.2476, 918.1498]
 
 def receive(senderID):
     if senderID!=0:
@@ -22,7 +22,7 @@ def receive(senderID):
 
             emergence=received_data[len(received_data)-1]
             sender= received_data[4-1]
-
+            print emergence
             if(emergence):
                 if sender == 0:
                     if globaldict.dic_msg:
