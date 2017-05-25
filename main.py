@@ -9,7 +9,7 @@ from semaforo import dicCAM
 from NormalLED import normalLED
 import globaldict
 import psutil
-
+import multiprocessing
 emergence=False
 senderID=0
 
@@ -41,10 +41,11 @@ def readGPSCoor():
 
 def receiver():
     global senderID
-    ledsEmNormal = psutil.Process(normalLED)
+    ledsEmNormal= multiprocessing.Process(target=normalLED)
     ledsEmNormal.start()
+    pidledsEmNormal = ledsEmNormal.getpid()
     while True:
-        receive(senderID, ledsEmNormal)
+        receive(senderID, pidledsEmNormal)
 
 
 def Button():

@@ -3,11 +3,10 @@ import struct
 from semaforo import calcSentido
 from semaforo import dicCAM
 import globaldict
-import threading
 from NormalLED import normalLED
 from NormalLED import emergenceLED
 import psutil
-
+import multiprocessing
 from AvisaPeoes import avisapeoes
 UDP_IP = 'localhost'
 UDP_PORT = 5005
@@ -18,7 +17,7 @@ thisposition=[3844.233154296875, 918.1594848632812]
 
 
 
-def receive(senderID, ledsEmNormal):
+def receive(senderID, pidledsEmNormal):
 
     #if senderID!=0:
 
@@ -37,14 +36,22 @@ def receive(senderID, ledsEmNormal):
                                 estado=(calcSentido(received_data[7], received_data[8], received_data[9], received_data[10],
                                              received_data[11], thisposition, sender))
                                 if estado==1:
-                                    ledsEmNormal.kill()
-                                    ledsEmEmergencia = psutil.Process(emergenceLED)
+                                    killledsEmNormal = psutil.Process(pidledsEmNormal)
+                                    killledsEmNormal.kill()
+
+                                    ledsEmEmergencia= multiprocessing.Process(target=emergenceLED)
+
                                     ledsEmEmergencia.start()
+                                    pidledsEmEmergencia=ledsEmEmergencia.getpid()
                                     print "Ativar estado emergencia!"
                                 if estado==2:
-                                    ledsEmEmergencia.kill()
-                                    ledsEmNormal = psutil.Process(normalLED)
+                                    killledsEmEmergencia = psutil.Process(pidledsEmEmergencia)
+                                    killledsEmEmergencia.kill()
+
+                                    ledsEmNormal = multiprocessing.Process(target=normalLED)
+
                                     ledsEmNormal.start()
+                                    pidledsEmNormal= ledsEmNormal.getpid()
                                     print "desativar estado de emergencia"
                                 if estado==3:
                                     print 'Mantem Estado Anterior'
