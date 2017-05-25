@@ -3,7 +3,10 @@ import struct
 from semaforo import calcSentido
 from semaforo import dicCAM
 import globaldict
-
+import threading
+from NormalLED import normalLED
+from NormalLED import emergenceLED
+import psutil
 
 from AvisaPeoes import avisapeoes
 UDP_IP = 'localhost'
@@ -13,7 +16,9 @@ sock.bind((UDP_IP, UDP_PORT))
 
 thisposition=[3844.233154296875, 918.1594848632812]
 
-def receive(senderID):
+
+
+def receive(senderID, ledsEmNormal):
 
     #if senderID!=0:
 
@@ -28,14 +33,18 @@ def receive(senderID):
                 if sender == 0:
                     if globaldict.dic_msg:
                         if len(globaldict.dic_msg[sender]) != 0:
-                            print globaldict.dic_msg[sender][4]
-                            print float(received_data[11])
                             if float(globaldict.dic_msg[sender][4]) < float(received_data[11]):
                                 estado=(calcSentido(received_data[7], received_data[8], received_data[9], received_data[10],
                                              received_data[11], thisposition, sender))
                                 if estado==1:
+                                    ledsEmNormal.kill()
+                                    ledsEmEmergencia = psutil.Process(emergenceLED)
+                                    ledsEmEmergencia.start()
                                     print "Ativar estado emergencia!"
                                 if estado==2:
+                                    ledsEmEmergencia.kill()
+                                    ledsEmNormal = psutil.Process(normalLED)
+                                    ledsEmNormal.start()
                                     print "desativar estado de emergencia"
                                 if estado==3:
                                     print 'Mantem Estado Anterior'

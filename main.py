@@ -8,6 +8,8 @@ from button import readButton
 from semaforo import dicCAM
 from NormalLED import normalLED
 import globaldict
+import psutil
+
 emergence=False
 senderID=0
 
@@ -30,7 +32,8 @@ def sender():
 
 
 def ledsnormal():
-    normalLED()
+        normalLED()
+
 
 def readGPSCoor():
     readgps()
@@ -38,8 +41,10 @@ def readGPSCoor():
 
 def receiver():
     global senderID
+    ledsEmNormal = psutil.Process(normalLED)
+    ledsEmNormal.start()
     while True:
-        receive(senderID)
+        receive(senderID, ledsEmNormal)
 
 
 def Button():
@@ -52,7 +57,7 @@ def main():
     gps = Thread(readGPSCoor)
     send = Thread(sender)
     btn = Thread(Button)
-    ledsEmNormal=Thread(ledsnormal)
+
 
 
 if __name__ == '__main__':
