@@ -27,17 +27,30 @@ def calc_checksum(sentence):
     return nmeadata, '0x' + cksum, hex(calc_cksum)
 
 
-def readgps():
+def readgps(sender):
     global latEmisphere
-    latEmisphere = 1.000
     global latDegrees
-    latDegrees = 2.0000
     global lonEmisphere
-    lonEmisphere = 3.0000
     global lonDegrees
-    lonDegrees = 4.0000
     global utc
-    utc = 0.000
+    if (sender)==1:
+        latEmisphere = 1.000
+        latDegrees = 3844.233154296875
+        lonEmisphere = 1
+        lonDegrees = 918.1594848632812
+        utc = 0.000
+    if (sender)==2:
+        latEmisphere = 1.000
+        latDegrees = 3844.234
+        lonEmisphere = 1
+        lonDegrees = 918.1590
+        utc = 0.000
+    else:
+        latEmisphere = 1.000
+        latDegrees = 2.0000
+        lonEmisphere = 3.0000
+        lonDegrees = 4.0000
+        utc = 0.000
 
     Ser = serial.Serial(port='COM3', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
                         bytesize=serial.EIGHTBITS, timeout=0)

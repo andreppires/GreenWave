@@ -2,9 +2,6 @@ import struct
 import gps
 
 
-
-
-
 def camconstructor(emergence, senderID):
     # header
     protoversion=1      # versao do nosso protocolo

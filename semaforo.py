@@ -25,8 +25,9 @@ def calcSentido(latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, semapho
     return estado
 
 def dicCAM(info, sender):
-
-    if globaldict.dic_msg:
+    # TODO guardar a localizacao apenas quando o tempo da msg e superior ao anterior
+    print globaldict.dic_msg
+    if len(globaldict.dic_msg)>0:
         if float(info[4]) < float(globaldict.dic_msg[sender][4]):
             globaldict.dic_msg[sender]=info
         else:
