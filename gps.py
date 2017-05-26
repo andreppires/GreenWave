@@ -1,5 +1,6 @@
 import serial
 import re
+from sys import platform
 
 
 def getPosition():
@@ -9,15 +10,17 @@ def getPosition():
     global lonEmisphere
     global lonDegrees
     global utc
-    #print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
     return latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
 
 
 def calc_checksum(sentence):
     if re.search("\n$", sentence):
         sentence = sentence[:-1]
+    try:
+        nmeadata, cksum = re.split('\*', sentence)
+    except ValueError:
 
-    nmeadata, cksum = re.split('\*', sentence)
+        return ["0","1","2"]
 
     nmeadata = nmeadata[1:]
     calc_cksum = 0
@@ -52,26 +55,34 @@ def readgps(sender):
         lonDegrees = 4.0000
         utc = 0.000
 
-    Ser = serial.Serial(port='COM3', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
-                        bytesize=serial.EIGHTBITS, timeout=0)
+    if platform == "linux" or platform == "linux2":
+        Ser = serial.Serial(port='/dev/gps0', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
+                            bytesize=serial.EIGHTBITS, timeout=0)
+        nmea="/home/andreppires/PycharmProjects/GreenWave/Nmea.txt"
+        fnmea="/home/andreppires/PycharmProjects/GreenWave/filtered_nmea.txt"
+    elif platform == "win32":
+        Ser = serial.Serial(port='COM3', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
+                            bytesize=serial.EIGHTBITS, timeout=0)
+        nmea="C:\Users\Pedro\PycharmProjects\GreenWave/Nmea.txt"
+        fnmea="C:\Users\Pedro\PycharmProjects\GreenWave/filtered_nmea.txt"
 
     print("connected to: " + Ser.portstr)
-    f = open('nmea.txt', 'w+')
-    new_f = open('filtered_nmea.txt', 'w+')
+    f = open(nmea, 'w+')
+    new_f = open(fnmea, 'w+')
 
     while True:
         line = Ser.readline()
         if line:
             data, cksum, calc_cksum = calc_checksum(line)
             if int(cksum, 16) == int(calc_cksum, 16):
-                with open("C:\Users\Pedro\PycharmProjects\GreenWave/Nmea.txt", 'a') as f:
+                with open(nmea, 'a') as f:
                     f.write(line)
 
                 first_split = line.split('*')
                 splited = first_split[0].split(',')
 
                 if splited[0] == ('$GPGGA') or splited[0] == ('$GPRMC'):
-                    with open("C:\Users\Pedro\PycharmProjects\GreenWave/filtered_nmea.txt", 'a') as new_f:
+                    with open(fnmea, 'a') as new_f:
                         new_f.write(line)
                     if splited[0] == ('$GPGGA'):
 
