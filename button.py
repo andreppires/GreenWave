@@ -8,6 +8,4 @@ def readButton():
             state= False
         if raw_input()== '1':
             state= True
-        if raw_input()== '99':
-            sys.exit()
         return state
