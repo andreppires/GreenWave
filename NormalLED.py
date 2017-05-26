@@ -62,7 +62,7 @@ def LEDS():
                     GPIO.output(17, GPIO.LOW)
                     GPIO.output(22, GPIO.LOW)
                     break
-                    GPIO.output(4, GPIO.HIGH)
+                GPIO.output(4, GPIO.HIGH)
                 time.sleep(0.5)
 
                 GPIO.output(4, GPIO.LOW)
