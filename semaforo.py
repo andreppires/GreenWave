@@ -18,8 +18,12 @@ def calcSentido(latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, semapho
 
     if latEmisphere == 0:
         latDegrees = decimal_degrees(*dm(latDegrees)) * (-1)
+    else:
+        latDegrees = decimal_degrees(*dm(latDegrees))
     if lonEmisphere == 0:
         lonDegrees = decimal_degrees(*dm(lonDegrees)) * (-1)
+    else:
+        lonDegrees = decimal_degrees(*dm(lonDegrees))
 
     if semaphore[0] == 0:
         latDegrees2 = decimal_degrees(*dm(semaphore[1])) * (-1)
