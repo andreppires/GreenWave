@@ -52,7 +52,6 @@ def calcSentido(latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, semapho
 
 
 def dicCAM(info, sender):
-    # TODO guardar a localizacao apenas quando o tempo da msg e superior ao anterior
     if float(info[4]) >= float(globaldict.dic_msg[sender][4]):
         globaldict.dic_msg[sender] = info
 
@@ -85,6 +84,7 @@ def cal_closer_semaphore(senderID , dist1):
         dist2 = vincenty(ambulance, other_sem).miles
         print 'este e p semaforo' + str(key)
         print dist2
+        print 'este e p semaforo' + str(senderID)
         print dist1
 
         if dist1 > dist2:  # Existe um semaforo mais proximo
