@@ -4,6 +4,7 @@ import globaldict
 def calcSentido(latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, semaphore, sender):
 
 
+
     if latEmisphere == 0:
         latDegrees = latDegrees * (-1)
     if lonEmisphere == 0:
