@@ -11,7 +11,7 @@ UDP_PORT = 5005
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 sock.bind((UDP_IP, UDP_PORT))
 
-thisPosition = [1 ,3800.0000, 0, 910.000,  135637.945]
+thisPosition = [1, 3800.0000, 0, 910.000,  135637.945]
 
 
 def receive(senderID):
@@ -35,7 +35,7 @@ def receive(senderID):
                     if globaldict.dic_msg:
                         if float(globaldict.dic_msg[sender][4]) <= float(received_data[11]):
                             estado = (calcSentido(received_data[7], received_data[8], received_data[9], received_data[10],
-                                                  received_data[11], thisPosition, sender))
+                                                  received_data[11], globaldict.dic_msg[senderID], sender))
                             # TODO falta verificar se este semaforo e o mais proximo da ambulancia.
                             if estado == 1:
                                 if cal_closer_semaphore(senderID, globaldict.dic_dist[sender]):
