@@ -7,9 +7,9 @@ from Receiver import receive
 from gps import readgps
 from button import readButton
 from semaforo import dicCAM
-#from NormalLED import LEDS
+from NormalLED import LEDS
 
-senderID = 0
+senderID = 3
 
 
 
@@ -35,8 +35,8 @@ def readGPSCoor():
 
 def leds():
     global senderID
-    #if senderID != 0:
-    #    LEDS()
+    if senderID != 0:
+        LEDS()
 
 
 def receiver():

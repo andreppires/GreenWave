@@ -20,11 +20,8 @@ def calcSentido(latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, semapho
 
     loc1 = (latDegrees, lonDegrees) # Ambulancia
     loc_sem = (latDegrees2, lonDegrees2) # Este semaforo
-    print loc1
-    print loc_sem
     dist1 = vincenty(loc_sem, loc1).miles
-    print 'distancias'
-    print dist1
+
 
     if globaldict.dic_dist[sender] > dist1:  # ele aproxima-se do semaforo
         globaldict.dic_dist[sender] = dist1

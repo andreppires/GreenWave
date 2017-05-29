@@ -5,7 +5,7 @@ from semaforo import calcSentido
 from semaforo import dicCAM
 from AvisaPeoes import avisapeoes
 from semaforo import cal_closer_semaphore
-
+import time
 UDP_IP = ''
 UDP_PORT = 5005
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
@@ -15,6 +15,7 @@ thisPosition = [1, 3800.0000, 0, 910.000,  135637.945]
 
 
 def receive(senderID):
+    time.sleep(1)
     if senderID != 0:
         while True:
             data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
@@ -22,12 +23,10 @@ def receive(senderID):
             localEmergence = received_data[len(received_data) - 1]
             sender = received_data[4 - 1]
             print "Sender recebido= " + str(sender)
-            print received_data
             try:
                 if len(globaldict.dic_msg[sender]) != 0:
-                    print 'Ja havia'
+                    print ''
             except KeyError:
-                print 'Inicializado'
                 globaldict.dic_msg[sender] = received_data[7:12]
 
             if (localEmergence):
