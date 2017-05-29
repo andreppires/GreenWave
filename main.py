@@ -7,9 +7,10 @@ from Receiver import receive
 from gps import readgps
 from button import readButton
 from semaforo import dicCAM
-from NormalLED import LEDS
+#from NormalLED import LEDS
 
 senderID = 0
+
 
 
 class Thread(threading.Thread):
@@ -23,8 +24,7 @@ def sender():
     while True:
         time.sleep(1)
         packet, latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc = camconstructor(globaldict.emergence, senderID)
-        dicCAM([latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, ], senderID)
-        # print latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc
+        globaldict.dic_msg[senderID]=[latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc ]
         sendpacket(packet)
 
 
@@ -35,8 +35,8 @@ def readGPSCoor():
 
 def leds():
     global senderID
-    if senderID != 0:
-        LEDS()
+    #if senderID != 0:
+    #    LEDS()
 
 
 def receiver():

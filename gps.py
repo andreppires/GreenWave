@@ -42,18 +42,19 @@ def readgps(sender):
         lonEmisphere = 1
         lonDegrees = 918.1594848632812
         utc = 0.000
-    if (sender)==2:
-        latEmisphere = 1.000
-        latDegrees = 3844.234
-        lonEmisphere = 1
-        lonDegrees = 918.1590
-        utc = 0.000
     else:
-        latEmisphere = 1.000
-        latDegrees = 2.0000
-        lonEmisphere = 3.0000
-        lonDegrees = 4.0000
-        utc = 0.000
+        if  (sender)== 2:
+            latEmisphere = 1.000
+            latDegrees = 3844.0000
+            lonEmisphere = 1
+            lonDegrees = 918.00000
+            utc = 0.000
+        else:
+            latEmisphere = 1.000
+            latDegrees = 2.0000
+            lonEmisphere = 3.0000
+            lonDegrees = 4.0000
+            utc = 0.000
 
     if platform == "linux" or platform == "linux2":
         Ser = serial.Serial(port='/dev/gps0', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
@@ -61,7 +62,7 @@ def readgps(sender):
         nmea="/home/andreppires/PycharmProjects/GreenWave/Nmea.txt"
         fnmea="/home/andreppires/PycharmProjects/GreenWave/filtered_nmea.txt"
     elif platform == "win32":
-        Ser = serial.Serial(port='COM3', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
+        Ser = serial.Serial(port='COM4', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
                             bytesize=serial.EIGHTBITS, timeout=0)
         nmea="C:\Users\Pedro\PycharmProjects\GreenWave/Nmea.txt"
         fnmea="C:\Users\Pedro\PycharmProjects\GreenWave/filtered_nmea.txt"
