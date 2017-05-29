@@ -50,11 +50,18 @@ def readgps(sender):
             lonDegrees = 918.00000
             utc = 0.000
         else:
-            latEmisphere = 1.000
-            latDegrees = 2.0000
-            lonEmisphere = 3.0000
-            lonDegrees = 4.0000
-            utc = 0.000
+            if sender==3:
+                latEmisphere = 1.000
+                latDegrees = 3800.0000
+                lonEmisphere = 1
+                lonDegrees = 910.00000
+                utc = 0.000
+            else:
+                latEmisphere = 1.000
+                latDegrees = 2.0000
+                lonEmisphere = 3.0000
+                lonDegrees = 4.0000
+                utc = 0.000
 
     if platform == "linux" or platform == "linux2":
         Ser = serial.Serial(port='/dev/gps0', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
