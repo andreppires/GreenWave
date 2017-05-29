@@ -9,7 +9,7 @@ from button import readButton
 from semaforo import dicCAM
 #from NormalLED import LEDS
 
-senderID = 2
+senderID = 0
 
 
 
