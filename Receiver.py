@@ -48,10 +48,7 @@ def receive(senderID):
                             globaldict.emergence = False
                             print "desativar estado de emergencia"
                         if estado == 3:
-                            if cal_closer_semaphore(senderID, globaldict.dic_dist[sender]):
-                                globaldict.emergence = True
-                                avisapeoes(senderID)
-                                print 'Mantem Estado Anterior'
+                            print 'Mantem Estado Anterior'
 
         print globaldict.dic_dist
         dicCAM(received_data[7:12], sender)

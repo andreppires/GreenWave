@@ -38,21 +38,21 @@ def readgps(sender):
     global utc
     if (sender)==1:
         latEmisphere = 1.000
-        latDegrees = 3844.233154296875
+        latDegrees = 3844.248
         lonEmisphere = 1
-        lonDegrees = 918.1594848632812
+        lonDegrees = 918.163
         utc = 0.000
     else:
         if  (sender)== 2:
             latEmisphere = 1.000
-            latDegrees = 3844.0000
-            lonEmisphere = 1
-            lonDegrees = 918.00000
+            latDegrees = 3844.234
+            lonEmisphere = 0.000
+            lonDegrees = 918.151
             utc = 0.000
         else:
             if sender==3:
                 latEmisphere = 1.000
-                latDegrees = 3800.0000
+                latDegrees = 3844.0000
                 lonEmisphere = 1
                 lonDegrees = 910.00000
                 utc = 0.000

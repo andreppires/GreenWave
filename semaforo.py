@@ -2,8 +2,7 @@ from geopy.distance import vincenty
 import globaldict
 
 def calcSentido(latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, semaphore, sender):
-    latDegrees2=0
-    lonDegrees2=0
+
 
     if latEmisphere == 0:
         latDegrees = latDegrees * (-1)
@@ -12,12 +11,17 @@ def calcSentido(latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, semapho
 
     if semaphore[0] == 0:
         latDegrees2 = semaphore[1] * (-1)
+    else:
+        latDegrees2 = semaphore[1]
     if  semaphore[2] == 0:
         lonDegrees2 = semaphore[3] * (-1)
+    else:
+        lonDegrees2 = semaphore[3]
 
     loc1 = (latDegrees, lonDegrees) # Ambulancia
     loc_sem = (latDegrees2, lonDegrees2) # Este semaforo
-
+    print loc1
+    print loc_sem
     dist1 = vincenty(loc_sem, loc1).miles
     print 'distancias'
     print dist1
@@ -41,34 +45,35 @@ def dicCAM(info, sender):
 
 def cal_closer_semaphore(senderID , dist1):
 
-    if globaldict.dic_msg[0] == 0:
-        latDegrees = globaldict.dic_msg[1] * (-1)
+    if globaldict.dic_msg[0][0] == 0:
+        latDegrees = globaldict.dic_msg[0][1] * (-1)
     else:
-        latDegrees = globaldict.dic_msg[1]
-    if globaldict.dic_msg[2] == 0:
-        lonDegrees = globaldict.dic_msg[3]* (-1)
+        latDegrees = globaldict.dic_msg[0][1]
+    if globaldict.dic_msg[0][2] == 0:
+        lonDegrees = globaldict.dic_msg[0][3]* (-1)
     else:
-        lonDegrees = globaldict.dic_msg[3]
+        lonDegrees = globaldict.dic_msg[0][3]
 
     ambulance = (latDegrees, lonDegrees)
-
+    print ambulance
     for key in globaldict.dic_msg:
         if key == senderID or key == 0:
             continue
-        if globaldict.dic_msg[0] == 0:
-            latDegrees2 = globaldict.dic_msg[1] * (-1)
+        if globaldict.dic_msg[key][0] == 0:
+            latDegrees2 = globaldict.dic_msg[key][1] * (-1)
         else:
-            latDegrees2 = globaldict.dic_msg[1]
-        if globaldict.dic_msg[2] == 0:
-            lonDegrees2 = globaldict.dic_msg[3] * (-1)
+            latDegrees2 = globaldict.dic_msg[key][1]
+        if globaldict.dic_msg[key][2] == 0:
+            lonDegrees2 = globaldict.dic_msg[key][3] * (-1)
         else:
-            lonDegrees2 = globaldict.dic_msg[3]
+            lonDegrees2 = globaldict.dic_msg[key][3]
         other_sem = (latDegrees2, lonDegrees2)
-        print 'motherfucker'
-        print other_sem
-        print ambulance
+
         dist2 = vincenty(ambulance, other_sem).miles
+        print 'este e p semaforo' + str(key)
         print dist2
+        print dist1
+
         if dist1 > dist2:  # Existe um semaforo mais proximo
             return False
 
