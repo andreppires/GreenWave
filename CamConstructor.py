@@ -21,6 +21,7 @@ def camconstructor(emergence, senderID):
     # ReferencePosition
 
     position=gps.getPosition()
+    print "vou enviar com as coordenadas: "+str(position)
     # latitude
     latEmisphere = position[1-1] # 1, norte |0, sul
     latDegrees= position[2-1]
