@@ -1,22 +1,33 @@
 from geopy.distance import vincenty
 import globaldict
 
+
+def dm(x):
+    degrees = int(x) // 100
+    minutes = x - 100*degrees
+
+    return degrees, minutes
+
+def decimal_degrees(degrees, minutes):
+    return degrees + minutes/60
+
+
 def calcSentido(latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, semaphore, sender):
 
 
     if latEmisphere == 0:
-        latDegrees = latDegrees * (-1)
+        latDegrees = decimal_degrees(*dm(latDegrees)) * (-1)
     if lonEmisphere == 0:
-        lonDegrees = lonDegrees * (-1)
+        lonDegrees = decimal_degrees(*dm(lonDegrees)) * (-1)
 
     if semaphore[0] == 0:
-        latDegrees2 = semaphore[1] * (-1)
+        latDegrees2 = decimal_degrees(*dm(semaphore[1])) * (-1)
     else:
-        latDegrees2 = semaphore[1]
+        latDegrees2 = decimal_degrees(*dm(semaphore[1]))
     if  semaphore[2] == 0:
-        lonDegrees2 = semaphore[3] * (-1)
+        lonDegrees2 = decimal_degrees(*dm(semaphore[3])) * (-1)
     else:
-        lonDegrees2 = semaphore[3]
+        lonDegrees2 = decimal_degrees(*dm(semaphore[3]))
 
     loc1 = (latDegrees, lonDegrees) # Ambulancia
     loc_sem = (latDegrees2, lonDegrees2) # Este semaforo
@@ -43,13 +54,13 @@ def dicCAM(info, sender):
 def cal_closer_semaphore(senderID , dist1):
 
     if globaldict.dic_msg[0][0] == 0:
-        latDegrees = globaldict.dic_msg[0][1] * (-1)
+        latDegrees = decimal_degrees(*dm(globaldict.dic_msg[0][1])) * (-1)
     else:
-        latDegrees = globaldict.dic_msg[0][1]
+        latDegrees = decimal_degrees(*dm(globaldict.dic_msg[0][1]))
     if globaldict.dic_msg[0][2] == 0:
-        lonDegrees = globaldict.dic_msg[0][3]* (-1)
+        lonDegrees = decimal_degrees(*dm(globaldict.dic_msg[0][3]))* (-1)
     else:
-        lonDegrees = globaldict.dic_msg[0][3]
+        lonDegrees = decimal_degrees(*dm(globaldict.dic_msg[0][3]))
 
     ambulance = (latDegrees, lonDegrees)
     print ambulance
@@ -57,13 +68,13 @@ def cal_closer_semaphore(senderID , dist1):
         if key == senderID or key == 0:
             continue
         if globaldict.dic_msg[key][0] == 0:
-            latDegrees2 = globaldict.dic_msg[key][1] * (-1)
+            latDegrees2 = decimal_degrees(*dm(globaldict.dic_msg[key][1])) * (-1)
         else:
-            latDegrees2 = globaldict.dic_msg[key][1]
+            latDegrees2 = decimal_degrees(*dm(globaldict.dic_msg[key][1]))
         if globaldict.dic_msg[key][2] == 0:
-            lonDegrees2 = globaldict.dic_msg[key][3] * (-1)
+            lonDegrees2 = decimal_degrees(*dm(globaldict.dic_msg[key][3])) * (-1)
         else:
-            lonDegrees2 = globaldict.dic_msg[key][3]
+            lonDegrees2 = decimal_degrees(*dm(globaldict.dic_msg[key][3]))
         other_sem = (latDegrees2, lonDegrees2)
 
         dist2 = vincenty(ambulance, other_sem).miles

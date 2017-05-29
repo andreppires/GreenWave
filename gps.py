@@ -66,13 +66,13 @@ def readgps(sender):
     if platform == "linux" or platform == "linux2":
         Ser = serial.Serial(port='/dev/gps0', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
                             bytesize=serial.EIGHTBITS, timeout=0)
-        nmea="/home/andreppires/PycharmProjects/GreenWave/Nmea.txt"
-        fnmea="/home/andreppires/PycharmProjects/GreenWave/filtered_nmea.txt"
+        nmea="/home/andreppires/PycharmProjects/GreenWave1/Nmea.txt"
+        fnmea="/home/andreppires/PycharmProjects/GreenWave1/filtered_nmea.txt"
     elif platform == "win32":
         Ser = serial.Serial(port='COM4', baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
                             bytesize=serial.EIGHTBITS, timeout=0)
-        nmea="C:\Users\Pedro\PycharmProjects\GreenWave/Nmea.txt"
-        fnmea="C:\Users\Pedro\PycharmProjects\GreenWave/filtered_nmea.txt"
+        nmea="C:\Users\Pedro\PycharmProjects\GreenWave1/Nmea.txt"
+        fnmea="C:\Users\Pedro\PycharmProjects\GreenWave1/filtered_nmea.txt"
 
     print("connected to: " + Ser.portstr)
     f = open(nmea, 'w+')
