@@ -15,6 +15,7 @@ def decimal_degrees(degrees, minutes):
 def calcSentido(latEmisphere, latDegrees, lonEmisphere, lonDegrees, utc, semaphore, sender):
 
 
+
     if latEmisphere == 0:
         latDegrees = decimal_degrees(*dm(latDegrees)) * (-1)
     if lonEmisphere == 0:
