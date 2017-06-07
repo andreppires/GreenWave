@@ -6,7 +6,6 @@ from SendPackage import sendpacket
 from Receiver import receive
 from gps import readgps
 from button import readButton
-from semaforo import dicCAM
 from NormalLED import LEDS
 
 senderID = 0

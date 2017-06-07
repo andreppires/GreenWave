@@ -38,29 +38,29 @@ def readgps(sender):
     global utc
     if (sender)==1:
         latEmisphere = 1.000
-        latDegrees = 3844.253
+        latDegrees = 3844.245
         lonEmisphere = 0.000
-        lonDegrees = 918.162
+        lonDegrees = 918.155
         utc = 0.000
     else:
         if  (sender)== 2:
             latEmisphere = 1.000
-            latDegrees = 3844.240
+            latDegrees = 3844.237
             lonEmisphere = 0.000
-            lonDegrees = 918.152
+            lonDegrees = 918.149
             utc = 0.000
         else:
             if sender==3:
                 latEmisphere = 1.000
-                latDegrees = 3844.230
+                latDegrees = 3844.232
                 lonEmisphere = 0.00
-                lonDegrees = 918.140
+                lonDegrees = 918.143
                 utc = 0.000
             else:
                 latEmisphere = 1.000
-                latDegrees = 3844.235
+                latDegrees = 3844.254
                 lonEmisphere = 0.000
-                lonDegrees = 918.146
+                lonDegrees = 918.163
                 utc = 0.000
 
     if platform == "linux" or platform == "linux2":
@@ -97,8 +97,6 @@ def readgps(sender):
                         if splited[1] == '':
                             continue
                         utc = float(splited[1])
-                        # heading = float(splited[9]) + float(splited[11])
-
                         if splited[2] == '':
                             continue
 

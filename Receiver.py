@@ -11,7 +11,6 @@ UDP_IP = ''
 UDP_PORT = 5005
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 sock.bind((UDP_IP, UDP_PORT))
-#thisPosition = [1, 3800.0000, 0, 910.000,  135637.945]
 
 def receive(senderID):
     time.sleep(1)
